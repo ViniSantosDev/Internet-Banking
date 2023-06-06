@@ -1,9 +1,12 @@
 package br.com.ViniSantosDev.Internet.Banking.entities;
 
+import br.com.ViniSantosDev.Internet.Banking.DTO.TransacoesDTO;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.*;
+
 
 @Entity
 @Table(name = "cliente")
@@ -24,8 +27,10 @@ public class Cliente implements Serializable {
     private String numeroConta;
     @Column
     private Date dataNascimento;
+
     @Column
-    private BigDecimal deposito;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "cliente") //cliente pode ter N transações
+    private List<TransacoesDTO> historico;
 
     public Long getId() {
         return id;
@@ -51,10 +56,6 @@ public class Cliente implements Serializable {
         return dataNascimento;
     }
 
-    public BigDecimal getDeposito() {
-        return deposito;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -75,7 +76,11 @@ public class Cliente implements Serializable {
         this.dataNascimento = dataNascimento;
     }
 
-    public void setDeposito(BigDecimal deposito) {
-        this.deposito = deposito;
+    public List<TransacoesDTO> getHistorico() {
+        return historico;
+    }
+
+    public void setHistorico(List<TransacoesDTO> historico) {
+        this.historico = historico;
     }
 }

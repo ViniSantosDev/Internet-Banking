@@ -4,6 +4,7 @@ import br.com.ViniSantosDev.Internet.Banking.entities.Cliente;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class ClienteDTO {
 
@@ -16,20 +17,20 @@ public class ClienteDTO {
     private Date dataNascimento;
     private BigDecimal deposito;
 
+    private List<TransacoesDTO> historico;
+
     public ClienteDTO() {
 
-    }
-
-    public ClienteDTO(BigDecimal deposito) {
-        this.deposito = deposito;
     }
 
     public ClienteDTO(Cliente cliente) {
         this.id = cliente.getId();
         this.nome = cliente.getNome();
         this.planoExclusive = cliente.getPlanoExclusive();
+        this.saldo = cliente.getSaldo();
         this.numeroConta = cliente.getNumeroConta();
         this.dataNascimento = cliente.getDataNascimento();
+        this.historico = cliente.getHistorico();
     }
 
     public Long getId() {
@@ -60,10 +61,6 @@ public class ClienteDTO {
         return dataNascimento;
     }
 
-    public BigDecimal getDeposito() {
-        return deposito;
-    }
-
     public void setNome(String nome) {
         this.nome = nome;
     }
@@ -84,7 +81,7 @@ public class ClienteDTO {
         this.dataNascimento = dataNascimento;
     }
 
-    public void setDeposito(BigDecimal deposito) {
-        this.deposito = deposito;
+    public List<TransacoesDTO> getHistorico() {
+        return historico;
     }
 }
